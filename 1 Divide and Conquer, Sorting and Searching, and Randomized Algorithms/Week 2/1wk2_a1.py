@@ -1,40 +1,47 @@
-"""
-Inversions: num of (i, j) in A where i<j and A[i]>A[j]
-"""
+#!/usr/bin/env python
 
-ia = []
-f = open('IntegerArray.txt', 'r')
-ls = f.readlines()
-f.close()
-ia = [int(i) for i in ls]
+
+def split_inversion(bl, br):
+    b = []
+    i, j, sp = 0, 0, 0
+
+    while i < len(bl) and j < len(br):
+        if bl[i] <= br[j]:
+            b += [bl[i]]
+            i += 1
+        else:
+            b += [br[j]]
+            j += 1
+            sp += len(bl)-i
+
+    b += bl[i:]
+    b += br[j:]
+    return b, sp
 
 
 def inversion(a):
-    n = len(a)
+    """
+    Count the number of Inversions.
+    Inversion: elements at i and j from input a, where i<j but a[i]>a[j].
+    Using Merge Sort.
+    """
+
+    n, m = len(a), len(a)//2
+
     if n == 1:
-        return (a, 0)
+        return a, 0
     else:
-        b1, nleft = inversion(a[:n//2])
-        b2, nright = inversion(a[n//2:])
-        cross = 0
-        b = []
-        i, j = 0, 0
-        while i < len(b1) or j < len(b2):
-            if i == len(b1):
-                b += b2[j:]
-                j = len(b2)
-            elif j == len(b2):
-                b += b1[i:]
-                i = len(b1)
-            elif b1[i] < b2[j]:
-                b += [b1[i]]
-                i += 1
-            else:
-                b += [b2[j]]
-                j += 1
-                cross += len(b1)-i
-        return (b, nleft+nright+cross)
+        bl, nl = inversion(a[:m])
+        br, nr = inversion(a[m:])
+        b, sp = split_inversion(bl, br)
+        return (b, nl + nr + sp)
 
 
-_, num = inversion(ia)
-print(num)
+if __name__ == '__main__':
+    with open('data.txt', 'r') as f:
+        a = [int(i) for i in f.readlines()]
+    
+    sa, n = inversion(a)
+    is_sorted = all(sa[i] <= sa[i+1] for i in range(len(sa)-1))
+    print('is sorted: ', is_sorted)
+    print('inversion: ', n)
