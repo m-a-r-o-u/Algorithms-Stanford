@@ -1,27 +1,38 @@
-"""
-2-sum
-"""
+#!/usr/bin/env python
+import time
+from bisect import bisect_left, bisect_right
 
-f = open('algo1-programming_prob-2sum.txt', 'r')
-data = list(map(int, f.readlines()))
 
-delta = 9999999
-h = {}
-for i in range(-delta, delta+1):
-    h[i] = []
+def read_file(name):
+    """
+    Given the name of the file, return the sorted list.
+    """
+    with open(name, 'r') as f:
+        data = set([int(i.strip()) for i in f.readlines()])
+    return sorted(data)
 
-data = list(set(data))
 
-for i in data:
-    h[i//10000] += [i]
+def two_sum(arr):
+    """
+    Given sorted arr and target value t, return the result.
+    """
+    sum_value = set()
+    for i in arr:
+        # find the indices
+        left = bisect_left(arr, -10000 - i)
+        right = bisect_right(arr, 10000-i)
 
-t = []
-for i in range(-delta, delta+1):
-    if len(h[i]) > 0:
-        find = h[-i-2]+h[-i-1]+h[-i]+h[-i+1]
-        for x in h[i]:
-            for y in find:
-                if x != y and abs(x+y) <= 10000 and x+y not in t:
-                    t += [x+y]
+        for j in arr[left:right]:
+            if i != j:
+                sum_value.add(i+j)
 
-print(len(t))
+    return len(sum_value)
+
+
+if __name__ == '__main__':
+    start = time.time()
+
+    array = read_file('data.txt')
+    total = two_sum(array)
+
+    print(total, 'calculated in {}'.format(time.time()-start))
