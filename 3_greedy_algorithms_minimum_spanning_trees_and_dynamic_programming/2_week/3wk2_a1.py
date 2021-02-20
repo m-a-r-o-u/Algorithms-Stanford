@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 """
 k-clustering
 """
 
-f = open('clustering1.txt', 'r')
+f = open('data.txt', 'r')
 
 graph = {}
 f.readline()

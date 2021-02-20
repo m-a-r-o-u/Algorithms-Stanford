@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+
 """
 k-clustering
 """
 
-f = open('clustering_big.txt', 'r')
+f = open('data2.txt', 'r')
 
 f.readline()
 ls = f.readline()
