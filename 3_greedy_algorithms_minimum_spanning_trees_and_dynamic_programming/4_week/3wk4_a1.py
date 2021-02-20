@@ -3,7 +3,7 @@ Knapsack algorithm
 """
 
 import numpy as np
-f = open('knapsack1.txt', 'r')
+f = open('knapsack.txt', 'r')
 f.readline()
 ls = f.readline()
 v = []
