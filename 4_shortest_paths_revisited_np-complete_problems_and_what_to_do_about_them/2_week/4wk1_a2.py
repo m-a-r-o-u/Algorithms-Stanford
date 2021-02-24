@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Traveling salesman problem
 """
@@ -17,6 +19,7 @@ def dis(i, j):
 N = len(graph)
 dic1 = {frozenset([0]): {0: 0}}
 
+print(f'N: {N}')
 for m in range(1, N):
     comb = list(combinations(range(1, N), m))
     dic2 = {frozenset(comb[i]): {list(comb[i])[j]: 0 for j in range(m)} for i in range(len(comb))}

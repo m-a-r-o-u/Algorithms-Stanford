@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """
 Shortest Path
 """
@@ -18,11 +20,6 @@ def readgraph(file):
     return g
 
 
-g1 = readgraph('g1.txt')
-g2 = readgraph('g2.txt')
-g3 = readgraph('g3.txt')
-
-
 def askmin(g):
     n = 1000
     A = np.zeros([n, n, n])
@@ -41,9 +38,14 @@ def askmin(g):
     print('min=%i' % A[:, :, n-1].min())
 
 
-print('g1')
-askmin(g1)
-print('g2')
-askmin(g2)
-print('g3')
-askmin(g3)
+if __name__ == '__main__':
+    g1 = readgraph('g1.txt')
+    g2 = readgraph('g2.txt')
+    g3 = readgraph('g3.txt')
+    
+    print('g1')
+    askmin(g1)
+    print('g2')
+    askmin(g2)
+    print('g3')
+    askmin(g3)
